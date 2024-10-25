@@ -122,11 +122,13 @@ form.addEventListener("submit", function(e){
             pet: petvalue
         }
     
+
         array.push(newperson);
         console.log(array);
         rendertable();
+        
     }
-    
+    form.reset()
 })
 rendertable();
 function rendertable(){
@@ -147,8 +149,6 @@ function rendertable(){
         }
 
 
-
-        
         tbody_tr.addEventListener('click', function(e){
             //console.log('clicked');
             const selected = tbody.querySelector('.selected');
