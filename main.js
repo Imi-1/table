@@ -28,26 +28,14 @@ let array = [
     },
 ]
 
- 
-const table = document.createElement('table');
-document.body.appendChild(table);
- 
-const thead = document.createElement('thead');
-table.appendChild(thead);
- 
-const tr = document.createElement('tr');
-thead.appendChild(tr);
- 
- 
-const tbody = document.createElement('tbody');
-table.appendChild(tbody);
+createElement("table","personTable",document.body);
 
-createTableCell("th",'Vezetéknév',tr);
-const keresztnev_createtablecell= createTableCell("th",'Keresztnév',tr);
-createTableCell("th",'Házas',tr);
-createTableCell("th",'Állat',tr);
+createHtmlElementWithParentId("thead","personThead","personTable");
+createHtmlElementWithParentId("tr","personTr","personThead");
+createHtmlElementWithParentId("tbody","personTbody","personTable");
 
-keresztnev_createtablecell.colSpan=2;
+
+createTableHeaderCell()
 
 
 function validatefields(lastnamehtml,firstname1html,pethtml){
@@ -82,18 +70,7 @@ function validatefields(lastnamehtml,firstname1html,pethtml){
    return result;
 
 }
-/**
- * 
- * @param {'td' | 'th'} tagName 
- * @param {string} innerHTML 
- * @param {HTMLTableRowElement} parentElement 
- */
-function createTableCell(tagName, innerHTML, parentElement){
-    const element = document.createElement(tagName);
-    element.innerHTML = innerHTML;
-    parentElement.appendChild(element);
-    return element
-}
+
 
 const form = document.getElementById("form");
 form.addEventListener("submit", function(e){
@@ -125,47 +102,9 @@ form.addEventListener("submit", function(e){
 
         array.push(newperson);
         console.log(array);
-        rendertable();
+        rendertable(array);
         
     }
     form.reset()
 })
-rendertable();
-function rendertable(){
-    tbody.innerHTML="";
-    for(const pers of array){
-        const tbody_tr = document.createElement('tr');
-        tbody.appendChild(tbody_tr);
-
-
-        createTableCell("td",pers.lastname,tbody_tr);
-        const firstname1_createtablecell= createTableCell("td",pers.firstname1,tbody_tr);
-
-        if(pers.firstname2 === undefined){
-            firstname1_createtablecell.colSpan = 2;
-        }
-        else{
-            createTableCell("td",pers.firstname2,tbody_tr);
-        }
-
-
-        tbody_tr.addEventListener('click', function(e){
-            //console.log('clicked');
-            const selected = tbody.querySelector('.selected');
-            e.currentTarget.classList.add('selected');
-            
-    
-            if (selected != undefined){
-                selected.classList.remove('selected');
-            }
-              
-        })
-    
-        createTableCell("td", pers.married ? "Igen" : "Nem", tbody_tr );
-        createTableCell("td", pers.pet, tbody_tr);
-
-     
-
-     
-    }
-}
+rendertable(array);
