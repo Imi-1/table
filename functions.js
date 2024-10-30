@@ -89,3 +89,35 @@ function rendertable(person_array){
      
     }
 }
+
+
+
+
+function validateFields(lastnamehtml,firstname1html,pethtml){
+    let result=true
+    if (!validateElement(lastnamehtml, "Kötelező vezetéknevet adni!")){ 
+            result = false;
+        }
+
+    if (!validateElement(firstname1html, "Kötelező keresztnevet adni!")){ 
+            result = false;
+        }
+
+    if (!validateElement(pethtml, "Kötelező kiválasztani a háziállatot!")){ 
+            result = false;
+        }
+
+   return result;
+}
+
+
+
+function validateElement(htmlElement, errorMessage) {
+    const errorElement = htmlElement.parentElement.querySelector('.error');
+    if (htmlElement.value === "") {
+        errorElement.innerHTML = errorMessage;
+        return false;
+    }
+    errorElement.innerHTML = "";  // Üzenet törlése, ha nincs hiba
+    return true;
+}
