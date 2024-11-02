@@ -28,34 +28,41 @@ let array = [
     },
 ]
 
-createElement("table","personTable",document.body);
+// Létrehozzuk a táblázatot, amelyet a dokumentum testében helyezünk el
+createElement("table", "personTable", document.body); // Táblázat létrehozása a 'personTable' azonosítóval
 
-createHtmlElementWithParentId("thead","personThead","personTable");
-createHtmlElementWithParentId("tr","personTr","personThead");
-createHtmlElementWithParentId("tbody","personTbody","personTable");
+// Létrehozzuk a táblázat fejét (thead), sorát (tr), és törzsét (tbody)
+createHtmlElementWithParentId("thead", "personThead", "personTable"); // Fejléc elem létrehozása
+createHtmlElementWithParentId("tr", "personTr", "personThead"); // Sor elem létrehozása a fejlécben
+createHtmlElementWithParentId("tbody", "personTbody", "personTable"); // Törzs elem létrehozása a táblázatban
 
+// A táblázat fejléc celláinak létrehozása
+createTableHeaderCell();
 
-createTableHeaderCell()
-
-
-document.getElementById("form").addEventListener("submit", function(e){
-    e.preventDefault();
-    const form = e.currentTarget;
+// Eseménykezelő az űrlap benyújtására
+document.getElementById("form").addEventListener("submit", function(e) {
+    e.preventDefault(); // Megakadályozzuk az alapértelmezett űrlap elküldést
+    const form = e.currentTarget; // Az aktuális űrlap elemének lekérése
     
-     if (validateFields(lastname, firstname1, pet)) {
+    // Ha a mezők validálása sikeres
+    if (validateFields("lastname", "firstname1", "pet")) {
+        // Új személy objektum létrehozása az űrlapmezők értékeivel
         const newperson = {
             firstname1: document.getElementById('firstname1').value,
             firstname2: document.getElementById('firstname2').value,
             lastname: document.getElementById('lastname').value,
             married: document.getElementById('married').checked,
             pet: document.getElementById('pet').value,
-        }
+        };
 
+        // Az új személy hozzáadása a tömbhöz
         array.push(newperson);
-        console.log(array);
-        rendertable(array);
-        
+        console.log(array); // Az aktuális tömb kiírása a konzolra
+        rendertable(array); // A táblázat újrarajzolása az aktuális tömb alapján
     }
-    form.reset()
-})
-rendertable(array);
+    
+    form.reset(); // Az űrlap mezőinek törlése az elküldés után
+});
+
+// A táblázat inicializálása az üres tömbbel
+rendertable(array); // A táblázat megjelenítése, üres tömbbel
